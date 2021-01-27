@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final flutterIconsMapData = {
+const flutterIconsMapData = {
   'ac_unit': Icons.ac_unit,
   'ac_unit_outlined': Icons.ac_unit_outlined,
   'ac_unit_rounded': Icons.ac_unit_rounded,

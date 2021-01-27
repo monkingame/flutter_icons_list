@@ -79,8 +79,12 @@ class _MyHomePageState extends State<MyHomePage> {
         hintText: 'Input Filter',
       ),
       maxLength: 10,
-      onChanged: (value) {
+      onChanged: (text) {
         // print(value);
+        setState(() {
+          iconsMap = IconsMapUtil().compact();
+          iconsMap.removeWhere((key, value) => !key.contains(text));
+        });
       },
     );
   }
