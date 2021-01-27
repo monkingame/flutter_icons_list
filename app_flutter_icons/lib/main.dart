@@ -32,12 +32,13 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(title),
       ),
       body: _buildIconsList(),
-      floatingActionButton: ElevatedButton(
-        child: Text('debug'),
-        onPressed: () {
-          final _ = IconsMapUtil().compact();
-        },
-      ),
+      // floatingActionButton: ElevatedButton(
+      //   child: Text('debug'),
+      //   onPressed: () {
+      //     final map = IconsMapUtil().compact();
+      //     print(map.length);
+      //   },
+      // ),
     );
   }
 
@@ -45,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final crossCount = 10;
     // final map = iconsMap;
     final map = IconsMapUtil().compact();
+    // print(map.length);
 
     return GridView.count(
       crossAxisCount: crossCount,
