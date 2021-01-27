@@ -73,17 +73,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildLayoutCtrlBar() {
     return Row(
       children: [
+        Text('Compact'),
         Switch(
           value: compact,
           onChanged: (value) {
             setState(() {
               compact = !compact;
-              // iconsMap = _getIconsMap;
               iconsMap = IconsMapUtil().getMapData(compact: compact);
             });
           },
         ),
-        Text('Compact'),
         // VerticalDivider(color: Colors.red),
         Expanded(
           child: Slider(
@@ -104,26 +103,30 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildFilterInput() {
-    return TextField(
-      decoration: InputDecoration(
-        border: OutlineInputBorder(),
-        hintText: 'Input Filter',
-      ),
-      maxLength: 10,
-      onChanged: (v) {
-        final text = v.trim();
-        setState(() {
-          title = text;
-          // iconsMap = _getIconsMap;
-          iconsMap = IconsMapUtil().getMapData(compact: compact);
-          if (text.isEmpty) return;
+    return Row(
+      children: [
+        Flexible(
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Input Filter',
+              labelText: '',
+              counterText: '',
+            ),
+            maxLength: 20,
+            onChanged: (v) {
+              final text = v.trim();
+              setState(() {
+                title = text;
+                iconsMap = IconsMapUtil().getMapData(compact: compact);
+                if (text.isEmpty) return;
 
-          iconsMap.removeWhere((key, value) => !key.contains(text));
-        });
-      },
+                iconsMap.removeWhere((key, value) => !key.contains(text));
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
-
-  // Map<String, IconData> get _getIconsMap =>
-  //     compact ? IconsMapUtil().getMapData() : flutterIconsMapData;
 }
