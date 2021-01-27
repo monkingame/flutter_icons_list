@@ -24,8 +24,9 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final showButton = false;
   var title = 'Flutter Icons';
-  var rowCount = 8;
-  var iconsMap = IconsMapUtil().compact();
+  double lineCount = 8;
+  bool compact = true;
+  var iconsMap = IconsMapUtil().getMapData(compact: true);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
-          _buildCountSliderBar(),
+          _buildLayoutCtrlBar(),
           Expanded(child: _buildIconsList()),
           _buildFilterInput(),
         ],
@@ -44,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ? ElevatedButton(
               child: Text('debug'),
               onPressed: () {
-                final map = IconsMapUtil().compact();
+                final map = IconsMapUtil().getMapData();
                 print(map.length);
               })
           : null,
@@ -52,12 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildIconsList() {
-    // final crossCount = 10;
-    // final map = IconsMapUtil().compact();
-
     return GridView.count(
-      // crossAxisCount: crossCount,
-      crossAxisCount: rowCount,
+      crossAxisCount: lineCount.round(),
       children: iconsMap.keys
           .map(
             (name) => IconButton(
@@ -73,18 +70,36 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _buildCountSliderBar() {
-    return Slider(
-      min: 4,
-      max: 12,
-      divisions: 8,
-      label: rowCount.toString(),
-      value: rowCount.toDouble(),
-      onChanged: (value) {
-        setState(() {
-          rowCount = value.round();
-        });
-      },
+  Widget _buildLayoutCtrlBar() {
+    return Row(
+      children: [
+        Switch(
+          value: compact,
+          onChanged: (value) {
+            setState(() {
+              compact = !compact;
+              // iconsMap = _getIconsMap;
+              iconsMap = IconsMapUtil().getMapData(compact: compact);
+            });
+          },
+        ),
+        Text('Compact'),
+        // VerticalDivider(color: Colors.red),
+        Expanded(
+          child: Slider(
+            min: 4,
+            max: 12,
+            divisions: 8,
+            label: lineCount.round().toString(),
+            value: lineCount,
+            onChanged: (value) {
+              setState(() {
+                lineCount = value;
+              });
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -92,16 +107,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return TextField(
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        // labelText: 'Input Filter',
         hintText: 'Input Filter',
       ),
       maxLength: 10,
       onChanged: (v) {
-        // print(value);
         final text = v.trim();
         setState(() {
           title = text;
-          iconsMap = IconsMapUtil().compact();
+          // iconsMap = _getIconsMap;
+          iconsMap = IconsMapUtil().getMapData(compact: compact);
           if (text.isEmpty) return;
 
           iconsMap.removeWhere((key, value) => !key.contains(text));
@@ -109,4 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
       },
     );
   }
+
+  // Map<String, IconData> get _getIconsMap =>
+  //     compact ? IconsMapUtil().getMapData() : flutterIconsMapData;
 }
