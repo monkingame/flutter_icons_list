@@ -1,3 +1,4 @@
+import 'package:app_flutter_icons/icons_map.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -8,47 +9,46 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Icons',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Flutter Icons List',
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key}) : super(key: key);
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var title = 'Flutter Icons';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Icons'),
+        title: Text(title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Icons List',
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showIcons,
-        child: Icon(Icons.add),
-      ),
+      body: _buildIconsList(),
     );
   }
 
-  void _showIcons() {
-    print('icons');
+  Widget _buildIconsList() {
+    return GridView.count(
+      crossAxisCount: 10,
+      children: iconsMap.keys
+          .map(
+            (name) => IconButton(
+              icon: Icon(iconsMap[name]),
+              onPressed: () {
+                setState(() {
+                  title = name;
+                });
+              },
+            ),
+          )
+          .toList(),
+    );
   }
 }
