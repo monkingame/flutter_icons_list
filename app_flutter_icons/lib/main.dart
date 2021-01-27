@@ -31,7 +31,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: _buildIconsList(),
+      body: Column(
+        children: [
+          Expanded(child: _buildIconsList()),
+          _buildFilterInput(),
+        ],
+      ),
       floatingActionButton: showButton
           ? ElevatedButton(
               child: Text('debug'),
@@ -63,6 +68,20 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           )
           .toList(),
+    );
+  }
+
+  Widget _buildFilterInput() {
+    return TextField(
+      decoration: InputDecoration(
+        border: OutlineInputBorder(),
+        // labelText: 'Input Filter',
+        hintText: 'Input Filter',
+      ),
+      maxLength: 10,
+      onChanged: (value) {
+        // print(value);
+      },
     );
   }
 }
