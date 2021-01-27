@@ -1,5 +1,6 @@
 import 'package:app_flutter_icons/icons_map_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(MyApp());
@@ -63,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   title = name;
                 });
+                Clipboard.setData(ClipboardData(text: name));
               },
             ),
           )
