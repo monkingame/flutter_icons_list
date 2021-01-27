@@ -24,7 +24,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final showButton = false;
   var title = 'Flutter Icons';
-
   var iconsMap = IconsMapUtil().compact();
 
   @override
@@ -82,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
       onChanged: (text) {
         // print(value);
         setState(() {
+          title = text;
           iconsMap = IconsMapUtil().compact();
           iconsMap.removeWhere((key, value) => !key.contains(text));
         });
