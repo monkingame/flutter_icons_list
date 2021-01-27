@@ -103,33 +103,28 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildFilterInput() {
-    return Column(
+    return Row(
       children: [
-        SizedBox(height: 10),
-        Row(
-          children: [
-            Flexible(
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Input Filter',
-                  labelText: '',
-                  counterText: '',
-                ),
-                maxLength: 20,
-                onChanged: (v) {
-                  final text = v.trim();
-                  setState(() {
-                    title = text;
-                    iconsMap = IconsMapUtil().getMapData(compact: compact);
-                    if (text.isEmpty) return;
-
-                    iconsMap.removeWhere((key, value) => !key.contains(text));
-                  });
-                },
-              ),
+        Flexible(
+          child: TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Input Filter',
+              labelText: '',
+              counterText: '',
             ),
-          ],
+            maxLength: 20,
+            onChanged: (v) {
+              final text = v.trim();
+              setState(() {
+                title = text;
+                iconsMap = IconsMapUtil().getMapData(compact: compact);
+                if (text.isEmpty) return;
+
+                iconsMap.removeWhere((key, value) => !key.contains(text));
+              });
+            },
+          ),
         ),
       ],
     );
