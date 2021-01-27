@@ -117,9 +117,9 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             maxLength: 20,
             onChanged: (v) {
-              final text = v.trim();
+              final text = v.toLowerCase().trim();
               setState(() {
-                title = text;
+                title = v;
                 iconsMap = IconsMapUtil().getMapData(compact: compact);
                 if (text.isEmpty) return;
 
