@@ -48,5 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _showIcons() {}
+  void _showIcons() {
+    print('icons');
+  }
 }

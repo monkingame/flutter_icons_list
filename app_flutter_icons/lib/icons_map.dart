@@ -4480,7 +4480,6 @@ final iconsMap = {
   'seven_mp': Icons.seven_mp,
   'seventeen_mp': Icons.seventeen_mp,
   'share': Icons.share,
-  'share': Icons.share,
   'share_outlined': Icons.share_outlined,
   'share_rounded': Icons.share_rounded,
   'share_sharp': Icons.share_sharp,
