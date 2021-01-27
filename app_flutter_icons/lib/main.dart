@@ -1,5 +1,5 @@
 import 'package:app_flutter_icons/icons_map.dart';
-import 'package:app_flutter_icons/map_util.dart';
+import 'package:app_flutter_icons/icons_map_util.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(title),
       ),
       body: _buildIconsList(),
-      floatingActionButton: TextButton(
+      floatingActionButton: ElevatedButton(
         child: Text('debug'),
         onPressed: () {
           final _ = IconsMapUtil().compact();
@@ -42,12 +42,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildIconsList() {
+    final crossCount = 10;
+    // final map = iconsMap;
+    final map = IconsMapUtil().compact();
+
     return GridView.count(
-      crossAxisCount: 10,
-      children: iconsMap.keys
+      crossAxisCount: crossCount,
+      children: map.keys
           .map(
             (name) => IconButton(
-              icon: Icon(iconsMap[name]),
+              icon: Icon(map[name]),
               onPressed: () {
                 setState(() {
                   title = name;
