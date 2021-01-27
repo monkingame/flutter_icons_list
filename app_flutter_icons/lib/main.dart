@@ -25,6 +25,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final showButton = false;
   var title = 'Flutter Icons';
 
+  var iconsMap = IconsMapUtil().compact();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,16 +52,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildIconsList() {
     final crossCount = 10;
-    // final map = iconsMap;
-    final map = IconsMapUtil().compact();
-    // print(map.length);
+    // final map = IconsMapUtil().compact();
 
     return GridView.count(
       crossAxisCount: crossCount,
-      children: map.keys
+      children: iconsMap.keys
           .map(
             (name) => IconButton(
-              icon: Icon(map[name]),
+              icon: Icon(iconsMap[name]),
               onPressed: () {
                 setState(() {
                   title = name;
