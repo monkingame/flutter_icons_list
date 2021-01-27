@@ -24,6 +24,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final showButton = false;
   var title = 'Flutter Icons';
+  var rowCount = 8;
   var iconsMap = IconsMapUtil().compact();
 
   @override
@@ -34,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
+          _buildCountSliderBar(),
           Expanded(child: _buildIconsList()),
           _buildFilterInput(),
         ],
@@ -50,11 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget _buildIconsList() {
-    final crossCount = 10;
+    // final crossCount = 10;
     // final map = IconsMapUtil().compact();
 
     return GridView.count(
-      crossAxisCount: crossCount,
+      // crossAxisCount: crossCount,
+      crossAxisCount: rowCount,
       children: iconsMap.keys
           .map(
             (name) => IconButton(
@@ -70,6 +73,21 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  Widget _buildCountSliderBar() {
+    return Slider(
+      min: 4,
+      max: 12,
+      divisions: 8,
+      label: rowCount.toString(),
+      value: rowCount.toDouble(),
+      onChanged: (value) {
+        setState(() {
+          rowCount = value.round();
+        });
+      },
+    );
+  }
+
   Widget _buildFilterInput() {
     return TextField(
       decoration: InputDecoration(
@@ -78,11 +96,14 @@ class _MyHomePageState extends State<MyHomePage> {
         hintText: 'Input Filter',
       ),
       maxLength: 10,
-      onChanged: (text) {
+      onChanged: (v) {
         // print(value);
+        final text = v.trim();
         setState(() {
           title = text;
           iconsMap = IconsMapUtil().compact();
+          if (text.isEmpty) return;
+
           iconsMap.removeWhere((key, value) => !key.contains(text));
         });
       },
