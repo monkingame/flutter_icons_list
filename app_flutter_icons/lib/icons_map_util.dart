@@ -10,14 +10,12 @@ class IconsMapUtil {
           .replaceAll('_rounded', '')
           .replaceAll('_sharp', ''),
     );
-    // print(keys.length);
-    // keys.forEach((ele) {
-    //   print(ele);
-    // });
+
     final map = Map<String, IconData>();
     keys.forEach((key) {
       if (!map.containsKey(key)) {
-        map[key] = iconsMap[key];
+        final existKey = iconsMap.containsKey(key) ? key : (key + '_outlined');
+        map[key] = iconsMap[existKey];
       }
     });
 

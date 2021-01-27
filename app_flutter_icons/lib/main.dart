@@ -1,4 +1,3 @@
-import 'package:app_flutter_icons/icons_map.dart';
 import 'package:app_flutter_icons/icons_map_util.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +22,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final showButton = false;
   var title = 'Flutter Icons';
 
   @override
@@ -32,13 +32,14 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(title),
       ),
       body: _buildIconsList(),
-      // floatingActionButton: ElevatedButton(
-      //   child: Text('debug'),
-      //   onPressed: () {
-      //     final map = IconsMapUtil().compact();
-      //     print(map.length);
-      //   },
-      // ),
+      floatingActionButton: showButton
+          ? ElevatedButton(
+              child: Text('debug'),
+              onPressed: () {
+                final map = IconsMapUtil().compact();
+                print(map.length);
+              })
+          : null,
     );
   }
 
