@@ -28,8 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var _title = 'Flutter Icons';
   String _filter = '';
   double _lineCount = 12;
-  bool _compact = true;
-  var _iconsMap = IconsMapUtil().getMapData(compact: true);
+  bool _compact = false;
+  var _iconsMap = IconsMapUtil().getMapData(compact: false);
 
   @override
   Widget build(BuildContext context) {
