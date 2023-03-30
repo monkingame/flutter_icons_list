@@ -19,7 +19,10 @@ class IconsMapUtil {
       if (!map.containsKey(key)) {
         final existKey =
             flutterIconsMapData.containsKey(key) ? key : (key + '_outlined');
-        map[key] = flutterIconsMapData[existKey];
+        final value = flutterIconsMapData[existKey];
+        if (value != null) {
+          map[key] = value;
+        }
       }
     });
 

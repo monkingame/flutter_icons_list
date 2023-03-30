@@ -24,18 +24,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final showButton = false;
+  final showButton = true;
   var title = 'Flutter Icons';
   double lineCount = 8;
-  bool compact = true;
+  bool _compact = true;
   var iconsMap = IconsMapUtil().getMapData(compact: true);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: AppBar(title: Text(title)),
       body: Column(
         children: [
           _buildLayoutCtrlBar(),
@@ -78,11 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
       children: [
         Text('Compact'),
         Switch(
-          value: compact,
+          value: _compact,
           onChanged: (value) {
             setState(() {
-              compact = !compact;
-              iconsMap = IconsMapUtil().getMapData(compact: compact);
+              _compact = !_compact;
+              iconsMap = IconsMapUtil().getMapData(compact: _compact);
             });
           },
         ),
@@ -121,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
               final text = v.toLowerCase().trim();
               setState(() {
                 title = v;
-                iconsMap = IconsMapUtil().getMapData(compact: compact);
+                iconsMap = IconsMapUtil().getMapData(compact: _compact);
                 if (text.isEmpty) return;
 
                 iconsMap.removeWhere((key, value) => !key.contains(text));

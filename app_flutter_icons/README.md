@@ -1,16 +1,21 @@
 # app_flutter_icons
 
-A new Flutter project.
+```
+正则表达式 找到每个单词 然后复制一份
+在 VSCode 中，你可以使用正则表达式来搜索和选择每个单词，然后使用替换功能来复制这些单词。
+首先，打开搜索面板（`Ctrl + F`（Windows 和 Linux）或 `Cmd + F`（macOS）），然后单击搜索框右侧的 `.*` 按钮以启用正则表达式搜索。接下来，在搜索框中输入正则表达式 `\b\w+\b`，VSCode 将自动高亮所有单词。然后，单击搜索框右侧的替换按钮（或按 `Ctrl + H`（Windows 和 Linux）或 `Cmd + Option + F`（macOS）），并在替换框中输入 `$& $&`。最后，单击“全部替换”按钮，VSCode 将自动复制每个单词。
+请注意，这只是一个简单的示例，你可以根据自己的需求对其进行修改。
 
-## Getting Started
+正则 \b\w+\b 代表什么意思
+正则表达式 `\b\w+\b` 用于匹配单词。它由三部分组成：
+1. `\b`：这是一个单词边界符，它用于匹配单词的开头或结尾。
+2. `\w+`：这是一个字符类，它用于匹配一个或多个字母、数字或下划线字符。`+` 表示匹配一次或多次。
+3. `\b`：这是另一个单词边界符，它用于匹配单词的结尾。
+因此，正则表达式 `\b\w+\b` 可以匹配一个完整的单词，该单词由一个或多个字母、数字或下划线字符组成，并且位于单词边界处。
 
-This project is a starting point for a Flutter application.
+正则 $& $& 是什么意思
+在正则表达式的替换操作中，`$&` 是一个特殊的替换模式，它表示整个匹配的子字符串。当你在替换文本中使用 `$&` 时，它会被替换为与正则表达式匹配的整个子字符串。
+例如，如果你使用正则表达式 `\b\w+\b` 来匹配单词，并在替换文本中使用 `$& $&`，那么每个匹配的单词都会被复制一次。例如，文本 `hello world` 会被替换为 `hello hello world world`。
+因此，在上一个回答中，我们使用 `$& $&` 来复制每个匹配的单词。
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
