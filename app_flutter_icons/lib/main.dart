@@ -24,16 +24,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final showButton = true;
-  var title = 'Flutter Icons';
-  double lineCount = 8;
+  final _showButton = false;
+  var _title = 'Flutter Icons';
+  String _filter = '';
+  double _lineCount = 8;
   bool _compact = true;
-  var iconsMap = IconsMapUtil().getMapData(compact: true);
+  var _iconsMap = IconsMapUtil().getMapData(compact: true);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(title: Text(_title)),
       body: Column(
         children: [
           _buildLayoutCtrlBar(),
@@ -41,11 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
           _buildFilterInput(),
         ],
       ),
-      floatingActionButton: showButton
+      floatingActionButton: _showButton
           ? ElevatedButton(
               child: Text('debug'),
               onPressed: () {
-                final map = IconsMapUtil().getMapData();
+                final map = IconsMapUtil().getMapData(compact: _compact);
                 print(map.length);
               })
           : null,
@@ -54,19 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _buildIconsList() {
     return GridView.count(
-      crossAxisCount: lineCount.round(),
-      children: iconsMap.keys
-          .map(
-            (name) => IconButton(
-              icon: Icon(iconsMap[name]),
+      crossAxisCount: _lineCount.round(),
+      children: _iconsMap.keys
+          .map((name) => IconButton(
+              icon: Icon(_iconsMap[name]),
               onPressed: () {
-                setState(() {
-                  title = name;
-                });
+                setState(() => _title = name);
                 Clipboard.setData(ClipboardData(text: name));
-              },
-            ),
-          )
+              }))
           .toList(),
     );
   }
@@ -80,23 +76,21 @@ class _MyHomePageState extends State<MyHomePage> {
           onChanged: (value) {
             setState(() {
               _compact = !_compact;
-              iconsMap = IconsMapUtil().getMapData(compact: _compact);
+              _iconsMap = IconsMapUtil().getMapData(compact: _compact);
+              if (_filter.isNotEmpty) {
+                _iconsMap.removeWhere((key, value) => !key.contains(_filter));
+              }
             });
           },
         ),
-        // VerticalDivider(color: Colors.red),
         Expanded(
           child: Slider(
             min: 4,
-            max: 12,
-            divisions: 8,
-            label: lineCount.round().toString(),
-            value: lineCount,
-            onChanged: (value) {
-              setState(() {
-                lineCount = value;
-              });
-            },
+            max: 20,
+            divisions: 16,
+            label: _lineCount.round().toString(),
+            value: _lineCount,
+            onChanged: (value) => setState(() => _lineCount = value),
           ),
         ),
       ],
@@ -116,13 +110,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             maxLength: 20,
             onChanged: (v) {
-              final text = v.toLowerCase().trim();
               setState(() {
-                title = v;
-                iconsMap = IconsMapUtil().getMapData(compact: _compact);
-                if (text.isEmpty) return;
-
-                iconsMap.removeWhere((key, value) => !key.contains(text));
+                _filter = v.toLowerCase().trim();
+                _title = _filter;
+                _iconsMap = IconsMapUtil().getMapData(compact: _compact);
+                if (_filter.isEmpty) return;
+                _iconsMap.removeWhere((key, value) => !key.contains(_filter));
               });
             },
           ),

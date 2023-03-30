@@ -8,24 +8,24 @@ class IconsMapUtil {
     }
 
     final keys = flutterIconsMapData.keys.map(
-      (ele) => ele
+      (e) => e
           .replaceAll('_outlined', '')
           .replaceAll('_rounded', '')
           .replaceAll('_sharp', ''),
     );
 
-    final map = Map<String, IconData>();
+    final pureMap = Map<String, IconData>();
     keys.forEach((key) {
-      if (!map.containsKey(key)) {
+      if (!pureMap.containsKey(key)) {
         final existKey =
             flutterIconsMapData.containsKey(key) ? key : (key + '_outlined');
         final value = flutterIconsMapData[existKey];
         if (value != null) {
-          map[key] = value;
+          pureMap[key] = value;
         }
       }
     });
 
-    return map;
+    return pureMap;
   }
 }
