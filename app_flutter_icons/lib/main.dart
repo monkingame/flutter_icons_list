@@ -27,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _showButton = false;
   var _title = 'Flutter Icons';
   String _filter = '';
-  double _lineCount = 8;
+  double _lineCount = 12;
   bool _compact = true;
   var _iconsMap = IconsMapUtil().getMapData(compact: true);
 
